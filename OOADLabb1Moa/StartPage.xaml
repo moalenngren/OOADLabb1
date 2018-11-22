@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="OOADLabb1Moa.StartPage" xmlns:local="clr-namespace:OOADLabb1Moa;Assembly=OOADLabb1Moa" BackgroundColor="White" BindingContext="{local:StartPageViewModel}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="wordButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Lime" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="BorderRadius" Value="3" />
+                <Setter Property="FontSize" Value="9" />
+            </Style>
+            <Style x:Key="changeButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Orange" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="BorderRadius" Value="3" />
+                <Setter Property="FontSize" Value="9" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="Center">
+            <Label Text="Hej, vart ligger glassbaren?" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" TextColor="Black" />
+            <Label Text="........" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" TextColor="Gray" />
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Text="está" Grid.Row="0" Grid.Column="0" Style="{StaticResource wordButton}" />
+                <Button Text="?" Grid.Row="0" Grid.Column="1" Style="{StaticResource wordButton}" />
+                <Button Text="la" Grid.Row="0" Grid.Column="2" Style="{StaticResource wordButton}" />
+                <Button Text="el" Grid.Row="1" Grid.Column="0" Style="{StaticResource wordButton}" />
+                <Button Text="por" Grid.Row="1" Grid.Column="1" Style="{StaticResource wordButton}" />
+                <Button Text="donde" Grid.Row="1" Grid.Column="2" Style="{StaticResource wordButton}" />
+                <Button Text="heladería" Grid.Row="2" Grid.Column="0" Style="{StaticResource wordButton}" />
+                <Button Text="cuando" Grid.Row="2" Grid.Column="1" Style="{StaticResource wordButton}" />
+                <Button Text="¿" Grid.Row="2" Grid.Column="2" Style="{StaticResource wordButton}" />
+            </Grid>
+             <Button Text="UNDO" Style="{StaticResource changeButton}" />
+             <Button Text="REDO" Style="{StaticResource changeButton}" />    
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
