@@ -18,8 +18,8 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center">
-            <Label Text="Hej, vart ligger glassbaren?" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" TextColor="Black" />
-            <Label Text="........" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" TextColor="Gray" />
+            <Label Text="Vart ligger glassbaren?" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" TextColor="Black" />
+            <Label Text="{Binding Sentence}" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" TextColor="Gray" />
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
@@ -31,18 +31,19 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Button Text="está" Grid.Row="0" Grid.Column="0" Style="{StaticResource wordButton}" />
-                <Button Text="?" Grid.Row="0" Grid.Column="1" Style="{StaticResource wordButton}" />
-                <Button Text="la" Grid.Row="0" Grid.Column="2" Style="{StaticResource wordButton}" />
-                <Button Text="el" Grid.Row="1" Grid.Column="0" Style="{StaticResource wordButton}" />
-                <Button Text="por" Grid.Row="1" Grid.Column="1" Style="{StaticResource wordButton}" />
-                <Button Text="donde" Grid.Row="1" Grid.Column="2" Style="{StaticResource wordButton}" />
-                <Button Text="heladería" Grid.Row="2" Grid.Column="0" Style="{StaticResource wordButton}" />
-                <Button Text="cuando" Grid.Row="2" Grid.Column="1" Style="{StaticResource wordButton}" />
-                <Button Text="¿" Grid.Row="2" Grid.Column="2" Style="{StaticResource wordButton}" />
+                <Button Text="está" Grid.Row="0" Grid.Column="0" Style="{StaticResource wordButton}" CommandParameter="ESTÁ" Command="{Binding WordCommand}"/>
+                <Button Text="?" Grid.Row="0" Grid.Column="1" Style="{StaticResource wordButton}" CommandParameter="?" Command="{Binding WordCommand}"/>
+                <Button Text="la" Grid.Row="0" Grid.Column="2" Style="{StaticResource wordButton}" CommandParameter="LA" Command="{Binding WordCommand}"/>
+                <Button Text="los" Grid.Row="1" Grid.Column="0" Style="{StaticResource wordButton}" CommandParameter="LOS" Command="{Binding WordCommand}"/>
+                <Button Text="por" Grid.Row="1" Grid.Column="1" Style="{StaticResource wordButton}" CommandParameter="POR" Command="{Binding WordCommand}"/>
+                <Button Text="donde" Grid.Row="1" Grid.Column="2" Style="{StaticResource wordButton}" CommandParameter="DONDE" Command="{Binding WordCommand}"/>
+                <Button Text="heladería" Grid.Row="2" Grid.Column="0" Style="{StaticResource wordButton}" CommandParameter="HELADERÍA" Command="{Binding WordCommand}"/>
+                <Button Text="cuando" Grid.Row="2" Grid.Column="1" Style="{StaticResource wordButton}" CommandParameter="CUANDO" Command="{Binding WordCommand}"/>
+                <Button Text="¿" Grid.Row="2" Grid.Column="2" Style="{StaticResource wordButton}" CommandParameter="¿" Command="{Binding WordCommand}"/>
             </Grid>
              <Button Text="UNDO" Style="{StaticResource changeButton}" />
-             <Button Text="REDO" Style="{StaticResource changeButton}" />    
+             <Button Text="REDO" Style="{StaticResource changeButton}" />  
+             <Label Text="{Binding Succeed}" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" TextColor="Black"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
