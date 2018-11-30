@@ -2,7 +2,7 @@
 namespace OOADLabb1Moa
 {
 
-    public class Originator 
+    public class Originator
     {
         private string _state;
 
@@ -13,7 +13,6 @@ namespace OOADLabb1Moa
 
             {
                 _state = value;
-                Console.WriteLine("State = " + _state);
             }
         }
 
@@ -26,12 +25,11 @@ namespace OOADLabb1Moa
 
         public void SetMemento(Memento memento)
         {
-            Console.WriteLine("Restoring state...");
             State = memento.State;
         }
 
-        //new
-        public void SetState(string state){
+        public void SetState(string state)
+        {
             this._state = state;
         }
     }

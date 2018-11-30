@@ -1,39 +1,51 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace OOADLabb1Moa
 {
-    public class Caretaker 
+    public class Caretaker
     {
+        private static Stack<Memento> undoStack = new Stack<Memento>();
 
-        //new
-        private static List<Memento> mementoList = new List<Memento>();
+        private static Stack<Memento> redoStack = new Stack<Memento>();
 
         public static List<Memento> MementoList { get; }
-        //old
-        //private Memento _memento; 
 
-        /* old
-        public Memento Memento
+        public void Undo()
         {
-            set { _memento = value; }
-            get { return _memento; }
-        } */
-
-        //new
-        //save state of the originator
-        public static void SaveState(Originator orig)
-        {
-            mementoList.Add(orig.CreateMemento());
+            if (undoStack.Count > 1)
+            {
+                Memento state = undoStack.Pop();
+                redoStack.Push(state);
+            }
         }
 
-        //new
-        //restore state of the originator
-        public static void RestoreState(Originator orig, int stateNumber)
+        public void Redo()
         {
-            orig.SetMemento(mementoList[stateNumber]);
+            if (redoStack.Count != 0)
+            { 
+                Memento state = redoStack.Pop();
+                undoStack.Push(state);
+            }
+
         }
 
-    }
+        public void Do(Originator orig)
+        {
+            undoStack.Push(orig.CreateMemento());
+            redoStack.Clear();
+        }
+
+        public void RestoreState(Originator orig)
+        {
+            if (undoStack.Count != 0)
+                orig.SetMemento(undoStack.Peek());
+        }
+    
+
+
+
+}
 }

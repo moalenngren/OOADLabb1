@@ -10,19 +10,9 @@ namespace OOADLabb1Moa
 {
     public class StartPageViewModel : INotifyPropertyChanged
     {
+        Originator orig = new Originator();
 
-        //Originator o = new Originator(); //old
-
-        Originator orig = new Originator(); //new
-
-
-        Caretaker care = new Caretaker(); //old
-
-        Stack<string> stack = new Stack<string>();
-
-        int index = 0;
-
-        //-------to here
+        Caretaker care = new Caretaker();
 
         private string succeed;
 
@@ -40,10 +30,10 @@ namespace OOADLabb1Moa
 
         private string sentence;
 
-        public string Sentence 
+        public string Sentence
         {
             get { return sentence; }
-            set 
+            set
             {
                 if (sentence != value)
                 {
@@ -60,15 +50,12 @@ namespace OOADLabb1Moa
         public StartPageViewModel()
         {
 
-            //old
-            //o.State = "..........";
-            //c.Memento = o.CreateMemento();
-
-            //new
-            orig.SetState("..........");
-            Caretaker.SaveState(orig); //save state of the originator
-
             Sentence = "..........";
+
+            orig.SetState(Sentence);
+            care.Do(orig);
+
+
             WordCommand = new Command<string>(
                 execute: WordButton,
                 canExecute: obj => { return true; }
@@ -81,75 +68,50 @@ namespace OOADLabb1Moa
 
             Succeed = "";
 
-            //index = 0;
         }
 
         private void WordButton(string obj)
         {
-            if(Sentence == "..........")
+            if (Sentence == "..........")
             {
                 Sentence = obj;
 
-                //old - Set state here
-                //o.State = Sentence;
-                //c.Memento = o.CreateMemento();
-
-                //new
                 orig.SetState(obj);
-                Caretaker.SaveState(orig); //save state of the originator
-                index++;
+                care.Do(orig);
 
-            } else if (!Sentence.Contains(obj) && Sentence != "¿ DONDE ESTÁ LA HELADERÍA ?")
+            }
+            else if (!Sentence.Contains(obj) && Sentence != "¿ DONDE ESTÁ LA HELADERÍA ?")
             {
                 Sentence += " " + obj;
 
-                //old - Set state here
-                //o.State = Sentence;
-                //c.Memento = o.CreateMemento();
 
-                //new
                 orig.SetState(Sentence);
-                Caretaker.SaveState(orig); //save state of the originator
-                index++;
+                care.Do(orig);
 
 
                 if (Sentence == "¿ DONDE ESTÁ LA HELADERÍA ?")
                 {
                     Succeed = "KORREKT! MUY BIÉN!";
 
-                    //old - Set state here
-                    //o.State = Sentence;
-                    //c.Memento = o.CreateMemento();
-
-
                 }
 
             }
-            //Set only here????
-
             RefreshCanExecute();
         }
 
-        private void OperatorButton(string obj) {
-
-
-
+        private void OperatorButton(string obj)
+        {
             if (obj == "UNDO")
             {
-
-
-                //old
-                //o.SetMemento(c.Memento);
-                //Sentence = o.State;
-
-                if (index > 0) index --;
-                //restore state of the originator
-                Caretaker.RestoreState(orig, index);
+                care.Undo();
+                care.RestoreState(orig);
                 Sentence = orig.State;
 
-            } else { //REDO
-                index++;
-                Caretaker.RestoreState(orig, index);
+            }
+            else
+            { //REDO
+                care.Redo();
+                care.RestoreState(orig);
                 Sentence = orig.State;
             }
             RefreshCanExecute();
@@ -160,7 +122,8 @@ namespace OOADLabb1Moa
             (WordCommand as Command).ChangeCanExecute();
         }
 
-        bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null) {
+        bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+        {
             if (Object.Equals(storage, value))
             {
                 return false;
@@ -169,9 +132,10 @@ namespace OOADLabb1Moa
             storage = value;
             OnPropertyChanged(propertyName);
             return true;
-        } 
+        }
 
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null) {
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }

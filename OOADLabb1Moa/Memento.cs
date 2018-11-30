@@ -1,20 +1,15 @@
 ﻿using System;
 namespace OOADLabb1Moa
 {
-    public class Memento 
+    public class Memento
     {
-    
-            private string _state;
 
-        // Constructor
+        private string _state;
 
         public Memento(string state)
         {
             this._state = state;
         }
-
-
-        // Gets or sets state
 
         public string State
         {
