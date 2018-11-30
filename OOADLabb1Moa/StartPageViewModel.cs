@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
@@ -8,6 +10,19 @@ namespace OOADLabb1Moa
 {
     public class StartPageViewModel : INotifyPropertyChanged
     {
+
+        //Originator o = new Originator(); //old
+
+        Originator orig = new Originator(); //new
+
+
+        Caretaker care = new Caretaker(); //old
+
+        Stack<string> stack = new Stack<string>();
+
+        int index = 0;
+
+        //-------to here
 
         private string succeed;
 
@@ -40,16 +55,33 @@ namespace OOADLabb1Moa
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ICommand WordCommand { private set; get; }
+        public ICommand OperatorCommand { private set; get; }
 
         public StartPageViewModel()
         {
+
+            //old
+            //o.State = "..........";
+            //c.Memento = o.CreateMemento();
+
+            //new
+            orig.SetState("..........");
+            Caretaker.SaveState(orig); //save state of the originator
+
             Sentence = "..........";
             WordCommand = new Command<string>(
                 execute: WordButton,
                 canExecute: obj => { return true; }
             );
 
+            OperatorCommand = new Command<string>(
+                execute: OperatorButton,
+                canExecute: obj => { return true; }
+            );
+
             Succeed = "";
+
+            //index = 0;
         }
 
         private void WordButton(string obj)
@@ -57,16 +89,69 @@ namespace OOADLabb1Moa
             if(Sentence == "..........")
             {
                 Sentence = obj;
+
+                //old - Set state here
+                //o.State = Sentence;
+                //c.Memento = o.CreateMemento();
+
+                //new
+                orig.SetState(obj);
+                Caretaker.SaveState(orig); //save state of the originator
+                index++;
+
             } else if (!Sentence.Contains(obj) && Sentence != "¿ DONDE ESTÁ LA HELADERÍA ?")
             {
                 Sentence += " " + obj;
 
+                //old - Set state here
+                //o.State = Sentence;
+                //c.Memento = o.CreateMemento();
+
+                //new
+                orig.SetState(Sentence);
+                Caretaker.SaveState(orig); //save state of the originator
+                index++;
+
+
                 if (Sentence == "¿ DONDE ESTÁ LA HELADERÍA ?")
                 {
                     Succeed = "KORREKT! MUY BIÉN!";
+
+                    //old - Set state here
+                    //o.State = Sentence;
+                    //c.Memento = o.CreateMemento();
+
+
                 }
 
-            } 
+            }
+            //Set only here????
+
+            RefreshCanExecute();
+        }
+
+        private void OperatorButton(string obj) {
+
+
+
+            if (obj == "UNDO")
+            {
+
+
+                //old
+                //o.SetMemento(c.Memento);
+                //Sentence = o.State;
+
+                if (index > 0) index --;
+                //restore state of the originator
+                Caretaker.RestoreState(orig, index);
+                Sentence = orig.State;
+
+            } else { //REDO
+                index++;
+                Caretaker.RestoreState(orig, index);
+                Sentence = orig.State;
+            }
             RefreshCanExecute();
         }
 

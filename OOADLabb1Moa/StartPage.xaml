@@ -41,8 +41,8 @@
                 <Button Text="cuando" Grid.Row="2" Grid.Column="1" Style="{StaticResource wordButton}" CommandParameter="CUANDO" Command="{Binding WordCommand}"/>
                 <Button Text="¿" Grid.Row="2" Grid.Column="2" Style="{StaticResource wordButton}" CommandParameter="¿" Command="{Binding WordCommand}"/>
             </Grid>
-             <Button Text="UNDO" Style="{StaticResource changeButton}" />
-             <Button Text="REDO" Style="{StaticResource changeButton}" />  
+             <Button Text="UNDO" Style="{StaticResource changeButton}" CommandParameter="UNDO" Command="{Binding OperatorCommand}"/>
+             <Button Text="REDO" Style="{StaticResource changeButton}" CommandParameter="REDO" Command="{Binding OperatorCommand}"/>  
              <Label Text="{Binding Succeed}" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" TextColor="Black"/>
         </StackLayout>
     </ContentPage.Content>
